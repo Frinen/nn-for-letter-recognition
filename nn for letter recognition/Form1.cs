@@ -1,4 +1,5 @@
-﻿using nn_for_letter_recognition.Models;
+﻿using nn_for_letter_recognition.Data;
+using nn_for_letter_recognition.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,8 @@ namespace nn_for_letter_recognition
     public partial class Form1 : Form
     {
         List<int> sensors;
+        
+        Perceptron perceptron;
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +27,12 @@ namespace nn_for_letter_recognition
 
             }
             sensors[0] = 1;
+            List<Neuron> neurons = new List<Neuron>();
+            for (int i = 0; i < Desires.GetDictionary().Count; i++)
+            {
+                neurons.Add(new Neuron());
+            }
+            perceptron = new Perceptron(neurons);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -380,6 +389,17 @@ namespace nn_for_letter_recognition
                 button25.BackColor = Color.White;
                 sensors[25]  = 0;
             }
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            
+            perceptron.Train(TrainData.GetDictionary(), Desires.GetDictionary());
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(perceptron.Evaluate(sensors));
         }
     }
 }

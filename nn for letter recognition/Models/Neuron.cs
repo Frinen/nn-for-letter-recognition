@@ -10,23 +10,26 @@ namespace nn_for_letter_recognition.Models
     {
         List<int> Inputs;
         List<int> Weights;
-        int Output;
-        int Error;
+        public int Output;
+        public int Error;
+        public int Eta;
 
         public Neuron()
         {
+            Eta = 1;
             Inputs = new List<int>();
             Weights = new List<int>();
             Random rnd = new Random();
             for(int i = 0; i <26; i++)
             {
+                
                 if(i==0)
                 {
-                    Weights[i] = rnd.Next(10) * -1;
+                    Weights.Add(rnd.Next(10) * -1);
                 }
                 else
                 {
-                    Weights[i] = rnd.Next(10);
+                    Weights.Add(rnd.Next(10));
                 }
             }
 
@@ -40,20 +43,41 @@ namespace nn_for_letter_recognition.Models
             }
             return Sum;
         }
-        public int Calcutale(List<int> list)
+
+        public void Calcutale(List<int> list)
         {
             Inputs = list;
             int Sum = FindSum();
             if(Sum < 0)
             {
-                return 0;
+                Output = 0;
             }
             else
             {
-                return 1;
+                Output = 1;
             }
+            
         }
 
+        public void CalculateEroor(int desire)
+        {
+            Error = desire - Output;
+        }
 
+        public void Correction ()
+        {
+            for (int i=0;i<26;i++)
+            {
+                if(i == 0)
+                {
+                    Weights[i] = Weights[i] + Eta * Error;
+                }
+                else
+                {
+                    Weights[i] = Weights[i] + Eta * Error * Inputs[i];
+                }
+            }
+        }
     }
+
 }
