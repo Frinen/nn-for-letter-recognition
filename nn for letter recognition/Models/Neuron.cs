@@ -9,16 +9,16 @@ namespace nn_for_letter_recognition.Models
     public class Neuron
     {
         List<int> Inputs;
-        List<int> Weights;
+        List<double> Weights;
         public int Output;
         public int Error;
-        public int Eta;
+        public double Eta;
 
         public Neuron()
         {
-            Eta = 1;
+            Eta = 0.3;
             Inputs = new List<int>();
-            Weights = new List<int>();
+            Weights = new List<double>();
             Random rnd = new Random();
             for(int i = 0; i <26; i++)
             {
@@ -34,9 +34,9 @@ namespace nn_for_letter_recognition.Models
             }
 
         }
-        private int FindSum()
+        private double FindSum()
         {
-            int Sum = 0;
+            double Sum = 0;
             for (int i = 0; i < Inputs.Count; i++)
             {
                 Sum += Inputs[i] * Weights[i];
@@ -47,7 +47,7 @@ namespace nn_for_letter_recognition.Models
         public void Calcutale(List<int> list)
         {
             Inputs = list;
-            int Sum = FindSum();
+            double Sum = FindSum();
             if(Sum < 0)
             {
                 Output = 0;

@@ -15,10 +15,13 @@ namespace nn_for_letter_recognition.Data
             DesiresDictionary = new Dictionary<int, List<int>>
             {
                 {0, new List<int>{
-                    1,0
+                    1,0,0
                 }},
                 {1, new List<int>{
-                    0,1,
+                    0,1,0
+                }},
+                {2, new List<int>{
+                    0,0,1
                 }},
             };
         }

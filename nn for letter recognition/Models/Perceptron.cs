@@ -20,26 +20,30 @@ namespace nn_for_letter_recognition.Models
         {
             for (int s = 0; s < 1000; s++)
             {
-                List<int> outputs = new List<int>();
+                
                 for (int d = 0; d < TrainData.Count; d++)
                 {
-                    List<int> des = Desires[d];
-                    while (!outputs.SequenceEqual(des))
+                    List<int> outputs = new List<int>();
+                    while (!outputs.SequenceEqual(Desires[d]))
                     {
                         
                         outputs = new List<int>();
                         for (int i = 0; i < neurons.Count; i++)
                         {
-                            neurons[i].Calcutale(TrainData[i]);
-                            neurons[i].CalculateEroor(Desires[d][i]);
-                            if (neurons[i].Error != 0)
+                            for (int j = 0; j < neurons.Count; j++)
                             {
-                                neurons[i].Correction();
+                                neurons[i].Calcutale(TrainData[j]);
+                                neurons[i].CalculateEroor(Desires[d][i]);
+                                if (neurons[i].Error != 0)
+                                {
+                                    neurons[i].Correction();
+                                }
                             }
                         }
-                        foreach (var neur in neurons)
+                        for (int i = 0; i < neurons.Count; i++)
                         {
-                            outputs.Add(neur.Output);
+                            neurons[i].Calcutale(TrainData[i]);
+                            outputs.Add(neurons[i].Output);
                         }
                         
                     }
@@ -56,7 +60,7 @@ namespace nn_for_letter_recognition.Models
                 neurons[i].Calcutale(inputs);
                 outputs.Add(neurons[i].Output);
             }
-            outut = $"{outputs[0]} {outputs[1]}";
+            outut = $"{outputs[0]} {outputs[1]} {outputs[2]}";
 
                 return outut;
         }
