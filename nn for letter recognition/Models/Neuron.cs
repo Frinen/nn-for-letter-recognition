@@ -9,7 +9,7 @@ namespace nn_for_letter_recognition.Models
     public class Neuron
     {
         List<int> Inputs;
-        List<double> Weights;
+        public List<double> Weights;
         public int Output;
         public int Error;
         public double Eta;

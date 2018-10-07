@@ -395,11 +395,22 @@ namespace nn_for_letter_recognition
         {
             
             perceptron.Train(TrainData.GetDictionary(), Desires.GetDictionary());
+            MessageBox.Show("Done");
         }
 
         private void button27_Click(object sender, EventArgs e)
         {
             MessageBox.Show(perceptron.Evaluate(sensors));
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(perceptron.WrightWeight());
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(perceptron.ReadWeight());
         }
     }
 }
